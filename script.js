@@ -1,9 +1,22 @@
-const left = document.querySelector('.left');
-const right = document.querySelector('.right');
-const container = document.querySelector('.container');
+const jokeEl = document.getElementById('joke')
+const jokeBtn = document.getElementById('jokeBtn')
 
-left.addEventListener('mouseenter', () => container.classList.add('hover-left'));
-left.addEventListener('mouseleave', () => container.classList.remove('hover-left'));
+jokeBtn.addEventListener('click', generateJoke)
 
-right.addEventListener('mouseenter', () => container.classList.add('hover-right'));
-right.addEventListener('mouseleave', () => container.classList.remove('hover-right'));
+generateJoke()
+
+async function generateJoke() {
+    const config = {
+        headers: {
+            'Accept': 'application/json'
+        }
+    }
+
+    const res = await fetch('https://icanhazdadjoke.com/', config)
+       
+    const data = await res.json()
+
+    jokeEl.innerHTML = data.joke
+
+}
+
